@@ -1,14 +1,12 @@
 package com.example.springDataJpa.repository;
 
 import com.example.springDataJpa.model.Student;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
 
-public interface StudentRepository extends Repository<Student, Long> {
+public interface StudentRepository extends CrudRepository<Student, Long> {
 
-    void save(Student student);
 
-    Optional<Student> findById(Long id);
 }
