@@ -5,6 +5,7 @@ import com.example.springDataJpa.model.Student;
 import com.example.springDataJpa.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,37 @@ public class StudentService {
     }else {
         return null;
     }
+    }
+
+
+    // update using id
+    public void updateStudent(Student studentReq, Long id){
+        Optional<Student> students = studentRepository.findById(id);
+
+     Student student = students.get();
+        student.setName(studentReq.getName());
+        student.setAge(studentReq.getAge());
+        student.setEmail(studentReq.getEmail());
+
+    }
+
+    // update using email
+    public Student updateStudent(Student studentReq, String email) {
+
+        Optional<Student> students = studentRepository.findByEmail(email);
+
+        Student student = students.get();
+
+        student.setName(studentReq.getName());
+        student.setAge(studentReq.getAge());
+        student.setEmail(studentReq.getEmail());
+
+        studentRepository.save(student);
+
+        return student;
+    }
+
+    public List<Student>  findAgeGreaterThen(int age){
+     return studentRepository.findAgeGreaterThen(age);
     }
 }
