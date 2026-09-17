@@ -16,6 +16,21 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
 Optional<Student> findByEmail(String email);
 
-@Query("select s from Student s where s.age <:age")
-List<Student> findAgeGreaterThen(@Param("age") int age);
+    @Query("select s from Student s where s.age Between:min and :max")
+    List<Student> findAgeGreaterThen(@Param("min") int min, @Param("max") int max);
+
+    @Query("select s from Student s order by s.age ASC")
+    List<Student> findByASC();
+
+    @Query("select s from Student s where s.age > :age and s.name = :name")
+    List<Student> findByAgeAndName(@Param("age") int age, @Param("name") String name);
+
+    @Query("select count(s) from Student s")
+    Long countByStudent();
+
+    @Query("select s from Student s where s.name = :name")
+    List<Student> findByName(@Param("name") String name);
+
+    @Query("select s from Student s where s.age = :age")
+    List<Student> findByAge(@Param("age") int age);
 }

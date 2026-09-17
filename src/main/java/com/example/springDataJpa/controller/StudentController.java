@@ -3,6 +3,7 @@ package com.example.springDataJpa.controller;
 import com.example.springDataJpa.model.Student;
 import com.example.springDataJpa.service.StudentService;
 import org.apache.coyote.Response;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,10 +40,40 @@ public class StudentController {
         return ResponseEntity.ok("student updated");
     }
 
-    @GetMapping("age/{age}")
-    public ResponseEntity<List<Student>> getStudentByAge(@PathVariable int age){
-        List<Student> student = studentService.findAgeGreaterThen(age);
+//    @GetMapping("age/{min}/{max}")
+//    public ResponseEntity<List<Student>> getStudentByAge(@PathVariable int min, @PathVariable int max){
+//        List<Student> student = studentService.findAgeGreaterThen(min, max);
+//        return ResponseEntity.ok(student);
+//    }
+
+//    @GetMapping("/age")
+//    public ResponseEntity<List<Student>> getStudent() {
+//        List<Student> students = studentService.findByASC();
+//        return ResponseEntity.ok(students);
+//    }
+
+//    @GetMapping("/{age}/{name}")
+//    public ResponseEntity<List<Student>> getStudentByName(@PathVariable int age, @PathVariable String name){
+//        List<Student> students = studentService.findByAgeAndName(age, name);
+//        return ResponseEntity.ok(students);
+//    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> countStudent(){
+        Long totalCount = studentService.countUsingStudent();
+        return ResponseEntity.ok(totalCount);
+    }
+
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<Student>> findByName(@PathVariable String name){
+        List<Student> student = studentService.findByName(name);
         return ResponseEntity.ok(student);
     }
 
+
+    @GetMapping("/age/{age}")
+    public ResponseEntity<List<Student>> findByAge(@PathVariable int age){
+        List<Student> student = studentService.findByAge(age);
+        return ResponseEntity.ok(student);
+    }
 }

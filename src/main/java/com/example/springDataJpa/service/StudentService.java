@@ -58,7 +58,27 @@ public class StudentService {
         return student;
     }
 
-    public List<Student>  findAgeGreaterThen(int age){
-     return studentRepository.findAgeGreaterThen(age);
+    public List<Student>  findAgeGreaterThen(int min, int max){
+     return studentRepository.findAgeGreaterThen(min, max);
+    }
+
+    public List<Student> findByASC(){
+        return studentRepository.findByASC();
+    }
+
+    public List<Student> findByAgeAndName(int age, String name){
+        return studentRepository.findByAgeAndName(age, name);
+    }
+
+    public Long countUsingStudent(){
+        return studentRepository.countByStudent();
+    }
+
+    public List<Student> findByName(String name){
+        return studentRepository.findByName(name);
+    }
+
+    public List<Student> findByAge(int age){
+        return studentRepository.findByAge(age);
     }
 }
